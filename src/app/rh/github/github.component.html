@@ -9,8 +9,8 @@
                 {{ usersResult.length }}
             </span> 
         </h1>
-
-        <input (keyup)="searchUsers()" [(ngModel)]="search" type="text" placeholder="Search ..." class="form-control mt-4">
+  
+      <app-search my-title="Search User in Atos" (searchItemEvent)="searchUsers($event)"></app-search>
         
     </div>
 </div>

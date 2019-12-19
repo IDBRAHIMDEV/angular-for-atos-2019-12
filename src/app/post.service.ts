@@ -29,4 +29,6 @@ export class PostService {
   _statusPost(id, data) {
     return this.http.patch(`${this.urlApi}/${id}`, data);
   }
+
+ 
 }

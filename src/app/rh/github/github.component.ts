@@ -24,11 +24,11 @@ export class GithubComponent implements OnInit {
         })
   }
 
-  searchUsers() {
-    this.usersResult = this.users.filter(user => user.login.toLowerCase().includes(this.search.toLowerCase()))
+  searchUsers(data: string) {
+    this.usersResult = this.users.filter(user => user.login.toLowerCase().includes(data.toLowerCase()))
 
     if(!this.usersResult.length) {
-      this.gitService.searchUsersDist(this.search)
+      this.gitService.searchUsersDist(data)
           .subscribe(res => {
 
             let { items }: any = res;

@@ -72,16 +72,19 @@
   <div class="row mt-3">
       <div class="col-md-12">
 
+          <app-search my-title="Posts Search" (searchItemEvent)="searchPosts($event)"></app-search>
+
           <table class="table table-hover">
               <thead>
                   <tr>
                       <th>Title</th>
                       <th>Body</th>
+                      <th>Vote</th>
                       <th></th>
                   </tr>
               </thead>
               <tbody>
-                  <tr (dblclick)="deletePost(post.id)" *ngFor="let post of posts">
+                  <tr *ngFor="let post of postsResult">
                       <td><h6> <i (click)="statusPost(post)" class="fa fa-power-off"
                                  [ngClass]="{
                                      'text-danger': !post.active,
@@ -89,6 +92,10 @@
                                  }"
                                ></i> {{ post.title }}</h6></td>
                       <td>{{ post.body }}</td>
+                      <td>
+                          like: {{ post.vote.like }} - disLike: {{ post.vote.disLike }}
+                        <app-votes [like]="post.vote.like" [dis-like]="post.vote.disLike"></app-votes>
+                      </td>
                       <td nowrap>
                           <button (click)="editPost(post)" class="btn btn-warning btn-sm mr-1">
                               <i class="fa fa-pencil"></i>

@@ -13,6 +13,8 @@ import { PostsComponent } from './posts/posts.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { GithubComponent } from './rh/github/github.component';
+import { SearchComponent } from './search/search.component';
+import { VotesComponent } from './votes/votes.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { GithubComponent } from './rh/github/github.component';
     ContentComponent,
     TableComponent,
     PostsComponent,
-    GithubComponent
+    GithubComponent,
+    SearchComponent,
+    VotesComponent
   ],
   imports: [
     BrowserModule,

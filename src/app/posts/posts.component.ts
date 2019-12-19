@@ -1,3 +1,4 @@
+import { Post } from './../models/post';
 import { PostService } from './../post.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,11 +11,18 @@ export class PostsComponent implements OnInit {
 
   display: boolean = false;
   editable: boolean = false;
-  posts: any[] = [];
+  like: number = 0;
+  disLike: number = 0;
+  posts: Post[] = [];
+  postsResult: Post[] = [];
 
-  post: any = {
+  post: Post = {
     title: '',
-    body: ''
+    body: '',
+    vote:{
+      like: 0,
+      disLike: 0
+    }
   }
 
   constructor(private postService: PostService) { }
@@ -25,8 +33,8 @@ export class PostsComponent implements OnInit {
 
   getPosts() {
     this.postService._getPosts()
-                    .subscribe((res: any[]) => {
-                      this.posts = res;
+                    .subscribe((res: Post[]) => {
+                      this.postsResult = this.posts = res;
                     })
   }
 
@@ -38,14 +46,9 @@ export class PostsComponent implements OnInit {
     }
     
     this.postService._persistPost(this.post)
-        .subscribe(res => {
-          this.posts = [res, ...this.posts];
-          this.post = {
-            title: '',
-            body: ''
-          }
-
-          this.display = false;
+        .subscribe((res: Post) => {
+          this.postsResult = this.posts = [res, ...this.posts];
+         this.initPost();
         })
   }
 
@@ -63,7 +66,7 @@ export class PostsComponent implements OnInit {
         )
   }
 
-  editPost(post) {
+  editPost(post: Post) {
     this.editable = true;
     this.post = post;
     this.display = true;
@@ -79,7 +82,11 @@ export class PostsComponent implements OnInit {
   initPost() {
     this.post = {
       title: '',
-      body: ''
+      body: '',
+      vote: {
+        like: 0,
+        disLike: 0
+      }
     }
     this.display = false;
     this.editable = false;
@@ -99,6 +106,27 @@ export class PostsComponent implements OnInit {
 
   info(data) {
     console.log(data);
+  }
+
+  searchPosts(data: string) {
+    
+    this.postsResult = this.posts.filter(post => post.title.toLowerCase().includes(data.toLowerCase()) || post.body.toLowerCase().includes(data.toLowerCase()))
+  }
+
+  incLike(post: Post) {
+  
+    post.vote.like++;  
+
+    this.postService._statusPost(post.id, post)
+        .subscribe(() => {})
+  }
+
+  incDisLike(post: Post) {
+    
+    post.vote.disLike++;
+
+    this.postService._statusPost(post.id, post)
+        .subscribe(() => {})
   }
 
 }
