@@ -1,3 +1,4 @@
+import { ComptaModule } from './compta/compta.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,6 +17,7 @@ import { GithubComponent } from './rh/github/github.component';
 import { SearchComponent } from './search/search.component';
 import { VotesComponent } from './votes/votes.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import { VotesComponent } from './votes/votes.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ComptaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
