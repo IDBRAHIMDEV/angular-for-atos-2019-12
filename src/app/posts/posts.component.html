@@ -94,7 +94,11 @@
                       <td>{{ post.body }}</td>
                       <td>
                           like: {{ post.vote.like }} - disLike: {{ post.vote.disLike }}
-                        <app-votes [like]="post.vote.like" [dis-like]="post.vote.disLike"></app-votes>
+                        <app-votes 
+                           [like]="post.vote.like" 
+                           [dis-like]="post.vote.disLike"
+                           (voteChildToParent)="incVote($event, post)"
+                        ></app-votes>
                       </td>
                       <td nowrap>
                           <button (click)="editPost(post)" class="btn btn-warning btn-sm mr-1">

@@ -115,18 +115,27 @@ export class PostsComponent implements OnInit {
 
   incLike(post: Post) {
   
-    post.vote.like++;  
-
     this.postService._statusPost(post.id, post)
         .subscribe(() => {})
   }
 
   incDisLike(post: Post) {
     
-    post.vote.disLike++;
-
     this.postService._statusPost(post.id, post)
         .subscribe(() => {})
+  }
+
+  incVote(data, post) {
+      
+      if(data.status == 'like') {
+        post.vote.like = data.value;
+        this.incLike(post);
+      }else {
+        post.vote.disLike = data.value;
+        this.incDisLike(post);
+      }
+
+      
   }
 
 }
