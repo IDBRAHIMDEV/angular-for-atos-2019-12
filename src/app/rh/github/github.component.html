@@ -1,0 +1,30 @@
+
+<div class="row">
+    <div class="col-md-12 my-4">
+        <h1>List of users 
+            <span class="badge ml-3" [ngClass]="{
+                'badge-primary': usersResult.length,
+                'badge-danger': !usersResult.length
+            }">
+                {{ usersResult.length }}
+            </span> 
+        </h1>
+
+        <input (keyup)="searchUsers()" [(ngModel)]="search" type="text" placeholder="Search ..." class="form-control mt-4">
+        
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4" *ngFor="let user of usersResult">
+        <div class="card my-2">
+            <img class="card-img-top" [src]="user.avatar_url" alt="">
+            <div class="card-body">
+                <h4 class="card-title">{{ user.login }}</h4>
+                <div class="card-text">
+                    <a [href]="user.html_url" target="_blank" class="btn btn-info btn-sm">Read more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<h1 class="my-2">List of Courses</h1>
+
+<input (keyup.enter)="addCourse()" class="form-control" type="text" [(ngModel)]="myCourse.name">
+
+<button *ngIf="editable" (click)="updateCourse()" class="btn btn-warning btn-block my-2"> <i class="fa fa-refresh"></i> Update</button>
+<button *ngIf="!editable" (click)="addCourse()" class="btn btn-primary btn-block my-2"> <i class="fa fa-send"></i> Save</button>
+
+<!-- <img [src]="myPicture" width="200px" alt=""> -->
+
+<button (click)="changeDisplay()" class="btn btn-light">
+    <i 
+        class="fa"
+        [ngClass]="{
+            'fa-th': toggleDisplay,
+            'fa-list': !toggleDisplay
+        }"
+    ></i>
+</button>
+
+<ul class="list-group" *ngIf="toggleDisplay">
+    
+    <li [class.list-group-item-dark]="!e" *ngFor="let course of courses; index as i, even as e, odd as o, first as f, last as l" class="list-group-item">
+        
+        index : {{ i }} - even : {{ e }} - odd : {{ o }} - first : {{ f }} - last : {{ l }} 
+
+        <i 
+            [ngStyle]="{
+                'color': course.active ? 'red' : 'green',
+                'font-size': course.active ? '30px' : '40px'
+            }" 
+            class="fa" 
+            [ngClass]="{
+                'fa-battery-full': course.active,
+                'fa-battery-empty': !course.active
+            }">
+        </i>
+        
+        {{ course.name }}
+        <div class="text-right">
+            <button (click)=" editCourse(course)" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pencil"></i></button>
+            <button (click)="deleteCourse(i)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+        </div>
+    </li>
+   
+</ul>
+
+<div class="row" *ngIf="!toggleDisplay">
+    <div class="col-md-4" *ngFor="let course of courses; index as i, even as e, odd as o, first as f, last as l">
+        <div class="card mt-4">
+            <img class="card-img-top" src="http://lorempixel.com/400/200/sports" alt="">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <i 
+                        [ngStyle]="{
+                            'color': course.active ? 'red' : 'green',
+                            'font-size': course.active ? '30px' : '40px'
+                        }" 
+                        class="fa" 
+                        [ngClass]="{
+                            'fa-battery-full': course.active,
+                            'fa-battery-empty': !course.active
+                        }">
+                    </i>
+                     {{ course.name }}
+                    </h4>
+                <div class="card-text">
+                    <button (click)=" editCourse(course)" class="btn btn-warning btn-sm mr-1"><i class="fa fa-pencil"></i></button>
+                    <button (click)="deleteCourse(i)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

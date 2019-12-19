@@ -1,0 +1,104 @@
+
+  <div class="row mt-4">
+      <div class="col-md-6">
+          <h1>List of posts</h1>
+      </div>
+      <div class="col-md-6 text-right">
+          <button (click)="displayForm()" class="btn btn-light btn-sm">
+              <i class="fa fa-plus"></i>
+          </button>
+      </div>
+  </div>
+
+          <div class="row" *ngIf="display">
+              <div class="col-md-6 mx-auto">
+
+                  <form #f="ngForm">
+
+                    <div class="form-group">
+                            <label for="title">Title</label>
+                        <input 
+                          required minlength="3"
+                          pattern="[a-zA-Z0-9 ]*"
+                          #title="ngModel"
+                          name="title"
+                          (change)="info(title)"
+                          [(ngModel)]="post.title" id="title" 
+                          type="text" 
+                          class="form-control">
+                          <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+                              <div *ngIf="title.errors.required">This field is Required !</div>
+                              <div *ngIf="title.errors.minlength">This field should be great then 
+                                {{ title.errors.minlength.actualLength }} / {{ title.errors.minlength.requiredLength }} 
+                                caracters !!
+                            </div>
+                            <div *ngIf="title.errors.pattern">This field is note respect the pattern !</div>
+                          </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body">Body</label>
+                        <textarea 
+                            required minlength="10"
+                            #body="ngModel"
+                            name="body"
+                            [(ngModel)]="post.body" 
+                            id="body" 
+                            rows="3" 
+                            class="form-control">
+                        </textarea>
+                        
+                        <div *ngIf="body.touched && body.invalid" class="alert alert-danger">
+                            <div *ngIf="body.errors.required">This field is Required !</div>
+                            <div *ngIf="body.errors.minlength">This field should be great then 
+                              {{ body.errors.minlength.actualLength }} / {{ body.errors.minlength.requiredLength }} 
+                              caracters !!
+                          </div>
+                          
+                        </div>
+                </div>
+                 
+                      <button *ngIf="editable" (click)="updatePost()" class="btn btn-warning mb-4 btn-block">
+                          <i class="fa fa-refresh"></i> Update
+                      </button>
+  
+                      <button *ngIf="!editable" (click)="savePost(f)" class="btn btn-primary mb-4 btn-block">
+                          <i class="fa fa-send"></i> Save
+                      </button>
+                 </form>
+              </div>
+          </div>
+
+  <div class="row mt-3">
+      <div class="col-md-12">
+
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th>Title</th>
+                      <th>Body</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr (dblclick)="deletePost(post.id)" *ngFor="let post of posts">
+                      <td><h6> <i (click)="statusPost(post)" class="fa fa-power-off"
+                                 [ngClass]="{
+                                     'text-danger': !post.active,
+                                     'text-success': post.active
+                                 }"
+                               ></i> {{ post.title }}</h6></td>
+                      <td>{{ post.body }}</td>
+                      <td nowrap>
+                          <button (click)="editPost(post)" class="btn btn-warning btn-sm mr-1">
+                              <i class="fa fa-pencil"></i>
+                        </button>
+                          <button (click)="deletePost(post.id)" class="btn btn-dark btn-sm">
+                              <i class="fa fa-trash"></i>
+                        </button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>

@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "active": false,
+      "id": 1,
+      "title": "Formation Angular 8",
+      "body": "Angular"
+    },
+    {
+      "title": "Learn Adonis",
+      "body": "Create the javascript app",
+      "id": 2,
+      "active": false
+    },
+    {
+      "title": "ddddddd",
+      "body": "wddfsddfdfdeefd",
+      "id": 3
+    },
+    {
+      "title": "Profiles",
+      "body": "ssssssssss",
+      "id": 4
+    }
+  ]
+}
